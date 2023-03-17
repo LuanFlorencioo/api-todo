@@ -7,9 +7,9 @@ import { loginRoute, taskRoutes, userRoutes } from "./routes";
 const app = express();
 app.use(express.json());
 
-app.use(loginRoute);
-app.use(userRoutes);
-app.use(taskRoutes);
+app.use("/login", loginRoute);
+app.use("/users", userRoutes);
+app.use("/tasks", taskRoutes);
 
 app.use(handleErrors);
 

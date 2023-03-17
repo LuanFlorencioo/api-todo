@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { ZodError } from "zod";
 import AppError from "./AppError";
 
-const handleErrors = (error: any, req: Request, res: Response): Response => {
+const handleErrors = (error: any, req: Request, res: Response, _: NextFunction): Response => {
   if (error instanceof AppError) {
     const { statusCode, message } = error;
     return res.status(statusCode).json({ message });
@@ -15,7 +15,7 @@ const handleErrors = (error: any, req: Request, res: Response): Response => {
 
   console.error(error.message);
   const message = "Internal server error";
-  return res.status(500).send(message);
+  return res.status(500).json({ message });
 }
 
 export default handleErrors;
